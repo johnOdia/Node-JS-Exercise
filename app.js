@@ -23,20 +23,18 @@ function getAJoke(joke) {
         let json = JSON.parse(body);
         let result
 
-        try {
-            if (json.results[0] === undefined) {
-                console.log('No jokes found for that search query\n')
-                process.stdout.write('Enter another search query or enter "EXIT" to quit: ')
-                return
-            }
-    
-            result = json.results[0].joke
-            writeToFile(result)
-            console.log(`Random Joke: ${result}\n`)
+        if(err) console.log(err)
+
+        if (json.results[0] === undefined) {
+            console.log('No jokes found for that search query\n')
             process.stdout.write('Enter another search query or enter "EXIT" to quit: ')
-        } catch (err) {
-            console.error(err.message)
+            return
         }
+
+        result = json.results[0].joke
+        writeToFile(result)
+        console.log(`Random Joke: ${result}\n`)
+        process.stdout.write('Enter another search query or enter "EXIT" to quit: ')
     });
 }
 
